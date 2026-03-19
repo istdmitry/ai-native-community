@@ -1,0 +1,20 @@
+{
+  "name": "@community/database",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI-Native Community database types and migrations",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.91.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

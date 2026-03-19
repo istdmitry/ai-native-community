@@ -1,0 +1,313 @@
+# constraints.yml
+# Pillar-level constraints, strengths, and anti-patterns for L1-L6.
+# Source: migrated from docs-sync block.v1.yaml pillars[*].levels[*]
+
+version: v2
+
+pillars:
+  context_system:
+    name: "Context System"
+    levels:
+      "1":
+        constraint_one_liner: "Context resets; outputs depend on luck + manual patching."
+        constraints:
+          - "No stable place where goals/constraints/examples live."
+          - "The same context is rewritten each time and slowly diverges."
+          - "Work starts 'cold'; reuse is accidental."
+        strengths:
+          - "You can get useful outputs when you personally drive the prompt."
+          - "You recognize when output is off, and can manually correct it."
+        anti_patterns:
+          - "Treating every task as unique."
+          - "Adding tools instead of stabilizing context."
+          - "Accepting outputs without stating what 'good' means."
+
+      "2":
+        constraint_one_liner: "Context exists but is scattered and drifts."
+        constraints:
+          - "Context is spread across chats/docs/tools; portability breaks."
+          - "Updates happen ad hoc; freshness decays silently."
+          - "You compensate by re-explaining or over-prompting."
+        strengths:
+          - "Some repeatability exists (you have a few patterns that work)."
+          - "You can reuse snippets/templates informally."
+        anti_patterns:
+          - "Copy-paste context without refresh (stale facts)."
+          - "Long prompts that hide the real constraints."
+
+      "3":
+        constraint_one_liner: "Shared picture lives in your head; context doesn't travel reliably."
+        constraints:
+          - "Context transfer between steps/tools is manual and error-prone."
+          - "Version drift creates hidden contradictions."
+          - "You become the single source of truth by default."
+        strengths:
+          - "You can coordinate multiple steps and tools when focused."
+          - "You can spot mismatches across outputs."
+        anti_patterns:
+          - "Relying on memory instead of explicit context packaging."
+          - "Letting each tool develop its own 'truth.'"
+
+      "4":
+        constraint_one_liner: "Context is shared and handled, but standards + drift become the risk."
+        constraints:
+          - "Context maintenance becomes a system responsibility."
+        strengths:
+          - "Context is structured and portable across workflows."
+        anti_patterns:
+          - "Over-engineering context stores that nobody refreshes."
+
+      "5":
+        constraint_one_liner: "Personalized context works until drift makes it wrong."
+        constraints:
+          - "Personalization and priorities fall behind reality without refresh."
+        strengths:
+          - "You can run complex work with less cognitive load."
+        anti_patterns:
+          - "Assuming personalization remains correct indefinitely."
+
+      "6":
+        constraint_one_liner: "Continuous refresh exists; governance and boundaries dominate."
+        constraints:
+          - "Knowing who owns decisions and where the lines are becomes the hard problem."
+        strengths:
+          - "Context and decisions travel predictably within a scaffold."
+        anti_patterns:
+          - "Letting autonomy expand without explicit escalation rules."
+
+  orchestration_load:
+    name: "Orchestration Load"
+    levels:
+      "1":
+        constraint_one_liner: "Work is one-step; multi-step execution collapses under load."
+        constraints:
+          - "No defined workflow steps; you improvise each time."
+          - "Handoffs are implicit; nothing is routable."
+        strengths:
+          - "Fast iteration on isolated tasks."
+        anti_patterns:
+          - "Starting without deciding what the steps are."
+
+      "2":
+        constraint_one_liner: "Repeatable tasks exist, but multi-step work still depends on you routing."
+        constraints:
+          - "You manually move outputs between tools/people."
+          - "No explicit handoff artifacts; you are the glue."
+        strengths:
+          - "You have repeatable 'mini-routines' for common tasks."
+        anti_patterns:
+          - "Adding more tools to 'solve' coordination."
+
+      "3":
+        constraint_one_liner: "You can orchestrate multiple tools/models, but you are the message bus."
+        constraints:
+          - "Switching costs + version drift make you the bottleneck."
+          - "Execution depends on your attention and memory."
+          - "Exceptions derail the flow because escalation isn't defined."
+        strengths:
+          - "You can coordinate complex projects when fully engaged."
+        anti_patterns:
+          - "Letting each step redefine scope and standards."
+
+      "4":
+        constraint_one_liner: "Workflow discipline exists; bottleneck becomes standards + review load."
+        constraints:
+          - "Exception handling and review triggers dominate throughput."
+        strengths:
+          - "Defined handoffs reduce routing burden."
+        anti_patterns:
+          - "Reviewing everything instead of defining review triggers."
+
+      "5":
+        constraint_one_liner: "Orchestration is partially delegated; drift becomes the failure mode."
+        constraints:
+          - "Delegation works until goals/constraints shift."
+        strengths:
+          - "Routing burden is low; system absorbs variability."
+        anti_patterns:
+          - "Silent expansion of delegated scope."
+
+      "6":
+        constraint_one_liner: "Role-based digital team; governance defines success."
+        constraints:
+          - "Accountability and knowing where the lines are dominate."
+        strengths:
+          - "Escalation rules and ownership exist."
+        anti_patterns:
+          - "No clear 'who decides' under conflict."
+
+  verification_control:
+    name: "Verification & Control"
+    levels:
+      "1":
+        constraint_one_liner: "Quality is taste-based; no acceptance criteria."
+        constraints:
+          - "You can't explain why an output is acceptable."
+          - "Errors slip because checking is inconsistent."
+        strengths:
+          - "You can manually spot obvious issues."
+        anti_patterns:
+          - "Approving output because it 'sounds right'."
+
+      "2":
+        constraint_one_liner: "You check outputs constantly because standards are implicit."
+        constraints:
+          - "Verification happens only at the end (if at all)."
+          - "No exception handling rules."
+        strengths:
+          - "You are vigilant; you catch many issues personally."
+        anti_patterns:
+          - "Becoming the permanent QA bottleneck."
+
+      "3":
+        constraint_one_liner: "Some criteria exist, but checkpoints/escalation are incomplete."
+        constraints:
+          - "Mid-work verification is missing; problems are discovered late."
+          - "Exceptions are handled ad hoc."
+        strengths:
+          - "You can define criteria when prompted."
+        anti_patterns:
+          - "Fixing errors downstream instead of preventing them."
+
+      "4":
+        constraint_one_liner: "Standards and checkpoints exist; governance of exceptions dominates."
+        constraints:
+          - "Exception taxonomy and escalation define reliability."
+        strengths:
+          - "Trust increases without constant supervision."
+        anti_patterns:
+          - "Standards that are too vague or too heavy."
+
+      "5":
+        constraint_one_liner: "Verification adapts to how you think; drift becomes the risk."
+        constraints:
+          - "Criteria no longer match priorities unless refreshed."
+        strengths:
+          - "System self-checks before escalation."
+        anti_patterns:
+          - "Letting criteria age silently."
+
+      "6":
+        constraint_one_liner: "Verification is embedded; accountability and boundaries dominate."
+        constraints:
+          - "Decision ownership under uncertainty is the hard part."
+        strengths:
+          - "Exception handling is explicit and routable."
+        anti_patterns:
+          - "Over-delegating judgment without guardrails."
+
+  codification_reuse:
+    name: "Codification & Reuse"
+    levels:
+      "1":
+        constraint_one_liner: "Outputs die as one-offs; nothing compounds."
+        constraints:
+          - "No templates/runbooks; everything is rebuilt."
+        strengths:
+          - "You can produce good artifacts when focused."
+        anti_patterns:
+          - "Keeping 'templates' only in your head."
+
+      "2":
+        constraint_one_liner: "Some reuse exists, but assets aren't maintained."
+        constraints:
+          - "Templates are inconsistent or abandoned."
+          - "No ownership for keeping assets current."
+        strengths:
+          - "You have reusable snippets or patterns."
+        anti_patterns:
+          - "Creating assets without using them twice."
+
+      "3":
+        constraint_one_liner: "Assets exist, but maintenance/ownership is weak."
+        constraints:
+          - "Runbooks exist but aren't trusted or updated."
+        strengths:
+          - "You can package work into a reusable form."
+        anti_patterns:
+          - "Letting assets rot until nobody uses them."
+
+      "4":
+        constraint_one_liner: "Reuse is integrated; governance and review load dominate."
+        constraints:
+          - "Maintaining asset quality becomes the constraint."
+        strengths:
+          - "Outputs compound through maintained assets."
+        anti_patterns:
+          - "Too many assets, no pruning."
+
+      "5":
+        constraint_one_liner: "Assets fit how you think; drift is the risk."
+        constraints:
+          - "Assets don't match current priorities unless refreshed."
+        strengths:
+          - "Low friction reuse; high leverage."
+        anti_patterns:
+          - "Assuming old assets remain valid."
+
+      "6":
+        constraint_one_liner: "Assets are role-based; governance dominates."
+        constraints:
+          - "Who owns standards and change control is the hard part."
+        strengths:
+          - "Compound reuse across roles."
+        anti_patterns:
+          - "No change control for shared assets."
+
+  personal_fit_adaptation:
+    name: "Personal Fit & Adaptation"
+    levels:
+      "1":
+        constraint_one_liner: "System doesn't match how you think; you fight it every time."
+        constraints:
+          - "Output format and reasoning style often mismatch your needs."
+        strengths:
+          - "You can correct the mismatch manually."
+        anti_patterns:
+          - "Assuming you need 'better prompts' instead of better fit."
+
+      "2":
+        constraint_one_liner: "Some preferences exist, but they're implicit and drift."
+        constraints:
+          - "No explicit 'how I work' profile."
+          - "No refresh mechanism for preferences."
+        strengths:
+          - "You know what good feels like, but can't encode it."
+        anti_patterns:
+          - "Changing style requirements every time without updating the system."
+
+      "3":
+        constraint_one_liner: "Fit exists, but refresh is inconsistent; drift causes regressions."
+        constraints:
+          - "Preferences and priorities change faster than your system updates."
+        strengths:
+          - "You can articulate fit rules when asked."
+        anti_patterns:
+          - "Letting 'your style' live only in your head."
+
+      "4":
+        constraint_one_liner: "Fit is embedded; drift becomes the primary risk."
+        constraints:
+          - "Alignment requires deliberate refresh."
+        strengths:
+          - "Outputs match how you think more reliably."
+        anti_patterns:
+          - "Assuming stable preferences."
+
+      "5":
+        constraint_one_liner: "Personalization is strong; governance of changes dominates."
+        constraints:
+          - "Behavior rules need continuous refresh."
+        strengths:
+          - "Low friction delegation without loss of intent."
+        anti_patterns:
+          - "Uncontrolled personalization scope creep."
+
+      "6":
+        constraint_one_liner: "Role-based fit; accountability and boundaries dominate."
+        constraints:
+          - "Who decides under conflict is the hard part."
+        strengths:
+          - "Delegation matches how you think while staying bounded."
+        anti_patterns:
+          - "No escalation rules for ambiguity."

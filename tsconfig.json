@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["ES2017", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "paths": {
+      "@community/engine": ["./packages/engine/src"],
+      "@community/content": ["./packages/content/src"],
+      "@community/ui": ["./packages/ui/src"],
+      "@community/database": ["./packages/database/src"],
+      "@community/theme": ["./packages/theme/src"]
+    }
+  },
+  "include": [],
+  "exclude": ["node_modules", "dist", ".next"]
+}

@@ -1,0 +1,28 @@
+# Memorable level names for L1-L6
+# These names are for self-understanding, not status signaling
+# Content TBD — placeholder names below
+
+levels:
+  - id: L1
+    name: "Explorer"
+    tagline: "Beginning the journey"
+
+  - id: L2
+    name: "Practitioner"
+    tagline: "Building first habits"
+
+  - id: L3
+    name: "Integrator"
+    tagline: "Weaving AI into daily work"
+
+  - id: L4
+    name: "Architect"
+    tagline: "Designing human-AI systems"
+
+  - id: L5
+    name: "Orchestrator"
+    tagline: "Leading multi-agent collaboration"
+
+  - id: L6
+    name: "Visionary"
+    tagline: "Shaping the future of work"

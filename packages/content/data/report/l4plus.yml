@@ -1,0 +1,75 @@
+# l4plus.yml
+# L4+ specific content: maintenance risks and diagnostics.
+# L4+ users do NOT receive prescriptive habits (per policy).
+# Source: migrated from docs-sync block.v1.yaml pillars[*].l4plus
+
+version: v2
+
+policy:
+  # L4+ users receive diagnostics and maintenance guidance, not habits.
+  # This is intentional: at L4+, generic habits can destabilize what works.
+  no_prescriptive_habits: true
+  consultation_recommended: true
+
+pillars:
+  context_system:
+    maintenance_risks:
+      - "Context drift hidden by automation (bad data becomes 'reliable' fast)."
+      - "Standards rot: the process runs, but outcomes diverge from intent."
+    diagnostics:
+      - "Where does context truth live, and who updates it?"
+      - "What triggers refresh? Is it explicit or assumed?"
+      - "How do you detect drift before it hits customers/stakeholders?"
+
+  orchestration_load:
+    maintenance_risks:
+      - "Review load grows faster than output."
+      - "Edge cases accumulate and create brittle automation."
+    diagnostics:
+      - "Which steps have checkpoints, and what happens on failure?"
+      - "What do you review by default, and what do you review only by trigger?"
+
+  verification_control:
+    maintenance_risks:
+      - "Checklists become ceremonial; real standards drift."
+      - "Escalation triggers become too sensitive or too lax."
+    diagnostics:
+      - "When was the last time acceptance criteria were updated?"
+      - "What's your current false-positive / false-negative rate for escalations?"
+
+  codification_reuse:
+    maintenance_risks:
+      - "Asset sprawl (too many templates, low signal)."
+      - "Change without governance breaks reliability."
+    diagnostics:
+      - "Which assets are actively used weekly?"
+      - "Who owns updates, and what triggers a review?"
+
+  personal_fit_adaptation:
+    maintenance_risks:
+      - "Personalization drift causes silent misalignment."
+      - "Overfitting to past priorities."
+    diagnostics:
+      - "What changed in the last 30 days that your system hasn't absorbed?"
+      - "How do you detect misalignment early?"
+
+# L4+ report section content
+report_section:
+  title: "Maintenance Considerations"
+  intro:
+    en: "You're operating at L{{level}} - this is rare."
+    ru: "Вы работаете на уровне L{{level}} - это редкость."
+  explanation:
+    en: "We don't give prescriptive habits at L4+ because generic advice can destabilize what works."
+    ru: "Мы не даём предписывающих привычек на L4+, потому что общие советы могут дестабилизировать то, что работает."
+  cta:
+    en: "For a customized improvement plan at L4+, book a 1:1 consultation."
+    ru: "Для индивидуального плана развития на L4+ закажите персональную консультацию."
+    button_text:
+      en: "Book Consultation"
+      ru: "Записаться на консультацию"
+    whatsapp:
+      phone: "6580536400"
+      message:
+        en: "Hi! I completed the AI Native Assessment (L4+) and would like to discuss a customized improvement plan."
+        ru: "Здравствуйте! Я прошёл AI Native Assessment (L4+) и хотел бы обсудить индивидуальный план развития."

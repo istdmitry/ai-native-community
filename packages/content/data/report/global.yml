@@ -1,0 +1,568 @@
+# global.yml
+# Global report content: level meanings, success criteria, CTAs, positioning.
+# Source: migrated from docs-sync block.v1.yaml global.*, cta.*, report_positioning.*, meta.*
+
+version: v2
+
+meta:
+  pillars_order:
+    - context_system
+    - orchestration_load
+    - verification_control
+    - codification_reuse
+    - personal_fit_adaptation
+
+confidence_labels:
+  high:
+    en: "High confidence"
+    ru: "Высокая уверенность"
+  medium:
+    en: "Medium confidence"
+    ru: "Средняя уверенность"
+  low:
+    en: "Low confidence"
+    ru: "Низкая уверенность"
+
+overall_level_meaning:
+  "1":
+    en:
+      - "AI helps with one-off tasks, but nothing is designed to repeat."
+      - "Context resets each time; quality depends on luck + manual patching."
+      - "Nothing compounds; good outputs die as one-offs."
+    ru:
+      - "ИИ помогает с разовыми задачами, но ничего не спроектировано для повторного использования."
+      - "Контекст сбрасывается каждый раз; качество зависит от удачи + ручной доработки."
+      - "Ничего не накапливается; хорошие результаты остаются разовыми."
+
+  "2":
+    en:
+      - "You can repeat tasks across tools, but context breaks apart and drifts."
+      - "Trust requires constant checking; portability breaks."
+      - "Reuse exists, but it's shallow and decays."
+    ru:
+      - "Вы можете повторять задачи в разных инструментах, но контекст фрагментируется и дрейфует."
+      - "Доверие требует постоянной проверки; переносимость нарушается."
+      - "Повторное использование есть, но оно поверхностное и угасает."
+
+  "3":
+    en:
+      - "You can complete multi-step work, but you are the routing layer."
+      - "Switching, version drift, and hidden assumptions make you the bottleneck."
+      - "Progress requires standardized handoffs and checkpoints."
+    ru:
+      - "Вы можете выполнять многоэтапную работу, но вы — уровень маршрутизации."
+      - "Переключение, дрейф версий и скрытые допущения делают вас узким местом."
+      - "Прогресс требует стандартизированных передач и контрольных точек."
+
+  "4":
+    en:
+      - "Standardized workflows handle work across multiple tools."
+      - "Bottleneck shifts to standards, review load, and exception handling."
+    ru:
+      - "Стандартизированные рабочие процессы управляют многоинструментным исполнением."
+      - "Узкое место смещается к стандартам, нагрузке на ревью и обработке исключений."
+
+  "5":
+    en:
+      - "Workflows are built around how you think; orchestration partly delegated."
+      - "Primary risk becomes drift (context + behavior lag behind reality)."
+    ru:
+      - "Рабочие процессы настроены под ваше мышление; оркестрация частично делегирована."
+      - "Основной риск — дрейф (контекст + поведение отстают от реальности)."
+
+  "6":
+    en:
+      - "Role-based digital team that keeps itself updated and governed."
+      - "Constraint becomes knowing who owns decisions and where the lines are."
+    ru:
+      - "Ролевая цифровая команда с непрерывным обновлением и управлением."
+      - "Ограничением становится владение решениями и контроль границ."
+
+next_transition_one_liners:
+  "1":
+    en: "Make one workflow repeatable by writing the minimum frame + definition of done."
+    ru: "Сделайте один рабочий процесс повторяемым, написав минимальный фрейм + определение готовности."
+  "2":
+    en: "Stop rewriting context. Create one portable context card and refresh it deliberately."
+    ru: "Прекратите переписывать контекст. Создайте одну переносимую карту контекста и обновляйте её осознанно."
+  "3":
+    en: "Stop being the message bus. Define handoffs and checkpoints so routing isn't you."
+    ru: "Перестаньте быть шиной сообщений. Определите передачи и контрольные точки, чтобы маршрутизация не зависела от вас."
+
+plan_success_criteria:
+  en:
+    - "I have a reusable artifact (template/runbook/checklist) that I used at least twice."
+    - "I have at least one explicit verification checkpoint (not only final review)."
+    - "I have a stable context location + a refresh trigger."
+  ru:
+    - "У меня есть переиспользуемый артефакт (шаблон/ранбук/чеклист), который я использовал минимум дважды."
+    - "У меня есть минимум одна явная контрольная точка проверки (не только финальный ревью)."
+    - "У меня есть стабильное место для контекста + триггер обновления."
+
+cta:
+  consultation:
+    label:
+      en: "Book a 1:1 consultation"
+      ru: "Записаться на консультацию"
+    # WhatsApp-based consultation booking
+    whatsapp_phone: "6580536400"
+    whatsapp_message:
+      en: "Hi! I completed the AI Native Assessment and would like to book a 1:1 consultation."
+      ru: "Здравствуйте! Я прошёл AI Native Assessment и хотел бы записаться на консультацию."
+
+  workshop:
+    label:
+      en: "Join Workshop"
+      ru: "Записаться на воркшоп"
+    url: "https://8hats.ai/shared/AI-Workshop-270126.html"
+
+  whatsapp:
+    phone: "6580536400"
+    label:
+      en: "Get 1:1 Consultation"
+      ru: "Получить персональную консультацию"
+    # URL template - {{level}} will be replaced at render time
+    url_template: "https://wa.me/6580536400?text={{message}}"
+    messages:
+      default:
+        en: "Hi! I completed the AI Native Assessment and would like to discuss my results."
+        ru: "Здравствуйте! Я прошёл AI Native Assessment и хотел бы обсудить результаты."
+      with_level:
+        en: "Hi! I completed the AI Native Assessment (Level {{level}}) and would like to discuss my results."
+        ru: "Здравствуйте! Я прошёл AI Native Assessment (Уровень {{level}}) и хотел бы обсудить результаты."
+      l1_l3:
+        en: "Hi! I completed the AI Native Assessment (L{{level}}) and would like help with my habit training plan."
+        ru: "Здравствуйте! Я прошёл AI Native Assessment (L{{level}}) и хотел бы получить помощь с планом развития привычек."
+      l4_plus:
+        en: "Hi! I completed the AI Native Assessment (L{{level}}) and would like to discuss a customized improvement plan."
+        ru: "Здравствуйте! Я прошёл AI Native Assessment (L{{level}}) и хотел бы обсудить индивидуальный план развития."
+
+report_positioning:
+  tool_agnostic_hook:
+    title:
+      en: "Why this report is tool-agnostic"
+      ru: "Почему этот отчёт не зависит от инструментов"
+    bullets:
+      en:
+        - "We don't recommend tools here because we don't know your ecosystem, constraints, and workflows."
+        - "Instead we focus on behavioral constraints and habit upgrades that work anywhere."
+        - "For a fully customized report mapped to your stack, book a 1:1 consultation."
+      ru:
+        - "Мы не рекомендуем инструменты, потому что не знаем вашу экосистему, ограничения и рабочие процессы."
+        - "Вместо этого мы фокусируемся на поведенческих ограничениях и привычках, которые универсальны."
+        - "Для полностью индивидуализированного отчёта под ваш стек закажите персональную консультацию."
+
+  what_this_means:
+    title:
+      en: "What This Means"
+      ru: "Что это значит"
+    content:
+      en:
+        - "This is not a grade. It is a constraint map."
+        - "Your overall level is your typical performance (median of all pillars)."
+        - "Your constraint pillar shows where to focus next for the biggest impact."
+        - "Progress is a habit change: small rules repeated until they become automatic."
+      ru:
+        - "Это не оценка. Это карта ограничений."
+        - "Ваш общий уровень отражает вашу типичную производительность (медиану всех столпов)."
+        - "Ваш ограничивающий столп показывает, на чём сфокусироваться для наибольшего прогресса."
+        - "Прогресс — это изменение привычек: маленькие правила, повторяемые до тех пор, пока не станут автоматическими."
+
+# Constraint explanation shown in dashboard report (L1-L3 habit training variant)
+constraint_explanation:
+  en: "Your constraint pillar is where focused effort will make the biggest difference in your AI workflow."
+  ru: "Ваш ограничивающий столп — это область, где целенаправленное улучшение окажет наибольшее влияние на надёжность ваших ИИ-процессов."
+
+# ============================================================================
+# EMAIL CONFIRMATION (v2.2)
+# ============================================================================
+
+email_confirmation:
+  success:
+    en: "Your full report has been sent to {email}"
+    ru: "Полный отчёт отправлен на {email}"
+  spam_hint:
+    en: "Don't see it? Check your spam folder."
+    ru: "Не видите письмо? Проверьте папку спам."
+  discuss_prompt:
+    en: "Want to discuss your results?"
+    ru: "Хотите обсудить результаты?"
+
+email_submission:
+  error:
+    generic:
+      en: "We couldn't send the report to your email"
+      ru: "Не удалось отправить отчёт на вашу почту"
+    network:
+      en: "Connection error. Please try again."
+      ru: "Ошибка соединения. Попробуйте ещё раз."
+    invalid:
+      en: "Please enter a valid email address."
+      ru: "Введите корректный адрес электронной почты."
+    retry_button:
+      en: "Try Again"
+      ru: "Попробовать снова"
+    skip_link:
+      en: "Skip and continue"
+      ru: "Пропустить и продолжить"
+
+# ============================================================================
+# FEEDBACK FORM (v2.2)
+# ============================================================================
+
+feedback:
+  button_label:
+    en: "I disagree with results / Want to discuss with a person"
+    ru: "Не согласен с результатами / Хочу обсудить с человеком"
+  form_title:
+    en: "Share your feedback"
+    ru: "Оставьте отзыв"
+  name_label:
+    en: "Your name"
+    ru: "Ваше имя"
+  contact_method:
+    en: "How should we contact you?"
+    ru: "Как с вами связаться?"
+  contact_options:
+    email:
+      en: "Email"
+      ru: "Почта"
+    phone:
+      en: "Phone"
+      ru: "Телефон"
+    whatsapp:
+      en: "WhatsApp"
+      ru: "WhatsApp"
+  email_label:
+    en: "Email"
+    ru: "Электронная почта"
+  phone_label:
+    en: "Phone"
+    ru: "Телефон"
+  message_label:
+    en: "Your message"
+    ru: "Ваше сообщение"
+  cancel_button:
+    en: "Cancel"
+    ru: "Отмена"
+  submit_button:
+    en: "Submit Feedback"
+    ru: "Отправить"
+  success_message:
+    en: "Thank you! We'll get back to you soon."
+    ru: "Спасибо! Мы свяжемся с вами в ближайшее время."
+
+# ============================================================================
+# ACCURACY CHOICE - COMPLETED DECKS (v2.2)
+# ============================================================================
+
+accuracy_choice:
+  completed_label:
+    en: "Completed ✓"
+    ru: "Пройдено ✓"
+  completed_tooltip:
+    en: "You've already completed this section"
+    ru: "Вы уже прошли этот раздел"
+
+referral:
+  share_message:
+    en: "I just took the 8Hats Reliable AI Assessment and found out I'm at Level {{level}}. It's a quick 5-minute assessment that maps your GenAI maturity across 5 dimensions. Highly recommend checking it out!"
+    ru: "Я только что прошёл оценку надёжного ИИ от 8Hats и узнал, что я на уровне L{{level}}. Это быстрая 5-минутная оценка, которая определяет вашу зрелость в GenAI по 5 измерениям. Очень рекомендую!"
+  share_url: "{{referral.share_url}}"
+
+# ============================================================================
+# DASHBOARD UI STRINGS (v2.2)
+# ============================================================================
+
+dashboard:
+  hero:
+    my_details:
+      en: "My details"
+      ru: "Мои данные"
+    current_level:
+      en: "Current Level"
+      ru: "Текущий уровень"
+    since:
+      en: "Since"
+      ru: "С"
+    not_assessed:
+      en: "Not yet assessed"
+      ru: "Ещё не оценено"
+    take_assessment:
+      en: "Take Assessment"
+      ru: "Пройти оценку"
+
+  closest_upgrade:
+    title_template:
+      en: "Path to Level {{level}}"
+      ru: "Путь к уровню {{level}}"
+    maintenance_title:
+      en: "Maintenance Mode"
+      ru: "Режим поддержки"
+    maintenance_description:
+      en: "You're operating at a high level. Focus on maintaining your systems and preventing drift."
+      ru: "Вы работаете на высоком уровне. Сосредоточьтесь на поддержке систем и предотвращении дрейфа."
+    habits_to_train:
+      en: "Habits to train"
+      ru: "Привычки для развития"
+    join_workshop:
+      en: "Join Workshop"
+      ru: "Записаться на воркшоп"
+    view_report:
+      en: "View full report"
+      ru: "Открыть полный отчёт"
+    retake_assessment:
+      en: "Retake Assessment"
+      ru: "Пройти заново"
+
+  history:
+    title:
+      en: "History"
+      ru: "История"
+    see_all:
+      en: "See all history"
+      ru: "Вся история"
+    view:
+      en: "View"
+      ru: "Открыть"
+    completed:
+      en: "Completed"
+      ru: "Завершено"
+    in_progress:
+      en: "In Progress"
+      ru: "В процессе"
+    no_history:
+      en: "No assessment history yet"
+      ru: "История оценок пока пуста"
+
+  progress_chart:
+    title:
+      en: "Progress Over Time"
+      ru: "Прогресс по времени"
+    overall:
+      en: "Overall"
+      ru: "Общий"
+
+  empty_state:
+    title:
+      en: "Discover your AI readiness level"
+      ru: "Узнайте свой уровень готовности к ИИ"
+    benefits:
+      en:
+        - "Identify your constraint pillar"
+        - "Get personalized habit recommendations"
+        - "Track your progress over time"
+        - "Compare with industry benchmarks"
+      ru:
+        - "Определите ваш ограничивающий столп"
+        - "Получите персональные рекомендации по привычкам"
+        - "Отслеживайте прогресс во времени"
+        - "Сравните себя с отраслевыми показателями"
+    cta:
+      en: "Take Assessment"
+      ru: "Пройти оценку"
+
+# ============================================================================
+# LEVEL NAMES (v2.2)
+# ============================================================================
+
+level_names:
+  "1":
+    en: "Ad Hoc Executor"
+    ru: "Разовый исполнитель"
+  "2":
+    en: "Repeatable Operator"
+    ru: "Повторяющий оператор"
+  "3":
+    en: "Manual Orchestrator"
+    ru: "Ручной оркестратор"
+  "4":
+    en: "Process Orchestrator"
+    ru: "Процессный оркестратор"
+  "5":
+    en: "Personalized Delegator"
+    ru: "Персонализированный делегатор"
+  "6":
+    en: "Decision Compounder"
+    ru: "Накопитель решений"
+  "7":
+    en: "Institutional Standard"
+    ru: "Институциональный стандарт"
+
+# ============================================================================
+# PILLAR NAMES (v2.2)
+# ============================================================================
+
+pillar_names:
+  context_system:
+    en: "Context System"
+    ru: "Система контекста"
+  orchestration_load:
+    en: "Orchestration Load"
+    ru: "Нагрузка оркестрации"
+  verification_control:
+    en: "Verification & Control"
+    ru: "Проверка и контроль"
+  codification_reuse:
+    en: "Codification & Reuse"
+    ru: "Кодификация и переиспользование"
+  personal_fit_adaptation:
+    en: "Personal Fit & Adaptation"
+    ru: "Личная адаптация"
+
+# ============================================================================
+# REPORT PAGE STRINGS (v2.2)
+# ============================================================================
+
+report:
+  back_to_dashboard:
+    en: "Back to Dashboard"
+    ru: "Назад в дашборд"
+  share:
+    en: "Share"
+    ru: "Поделиться"
+  download_pdf:
+    en: "Download PDF"
+    ru: "Скачать PDF"
+  full_report_title:
+    en: "Full Report for"
+    ru: "Полный отчёт для"
+  recipient:
+    en: "Recipient"
+    ru: "Получатель"
+  email:
+    en: "Email"
+    ru: "Почта"
+  session:
+    en: "Session"
+    ru: "Сессия"
+  overall_level:
+    en: "Overall Level"
+    ru: "Общий уровень"
+  peer_benchmark:
+    en: "Peer Benchmark"
+    ru: "Сравнение с коллегами"
+  key_insight:
+    title:
+      en: "Key Insight"
+      ru: "Ключевой инсайт"
+    constraint_text:
+      en: "Your {{pillar}} at L{{level}} is the constraint. Focus here for the biggest impact."
+      ru: "Ваш {{pillar}} на L{{level}} является ограничением. Сфокусируйтесь здесь для максимального прогресса."
+    maintenance_text:
+      en: "You're operating at L{{level}}. Focus on maintaining systems and preventing drift."
+      ru: "Вы работаете на L{{level}}. Сфокусируйтесь на поддержке систем и предотвращении дрейфа."
+  next_move:
+    title:
+      en: "Next Move"
+      ru: "Следующий шаг"
+  pillar_profile:
+    title:
+      en: "Five-Pillar Profile"
+      ru: "Профиль по пяти столпам"
+    constraint:
+      en: "Constraint"
+      ru: "Ограничение"
+  constraints_section:
+    title:
+      en: "What's Holding You Back"
+      ru: "Что вас сдерживает"
+  habits_section:
+    title:
+      en: "Build These Habits"
+      ru: "Развивайте эти привычки"
+    effort_quick_win:
+      en: "Quick Win"
+      ru: "Быстрая победа"
+    effort_medium:
+      en: "Medium"
+      ru: "Средне"
+    effort_strategic:
+      en: "Strategic"
+      ru: "Стратегически"
+  maintenance_audit:
+    title:
+      en: "System Health Audit"
+      ru: "Аудит здоровья системы"
+    status_healthy:
+      en: "Healthy"
+      ru: "Здоров"
+    status_monitor:
+      en: "Monitor"
+      ru: "Наблюдение"
+    status_attention:
+      en: "Attention"
+      ru: "Внимание"
+    limiting_pillar:
+      en: "Limiting"
+      ru: "Ограничивающий"
+  evidence_summary:
+    title:
+      en: "Evidence Summary"
+      ru: "Сводка доказательств"
+  cta_section:
+    consultation:
+      en: "Need help building your habit training plan?"
+      ru: "Нужна помощь в составлении плана развития привычек?"
+  footer:
+    available:
+      en: "Singapore-based team available for in-person sessions"
+      ru: "Команда в Сингапуре доступна для личных сессий"
+    rights:
+      en: "All rights reserved."
+      ru: "Все права защищены."
+
+# ============================================================================
+# SIDEBAR MENU (v2.2)
+# ============================================================================
+
+sidebar:
+  brand:
+    eyebrow:
+      en: "Reliable AI"
+      ru: "Надёжный ИИ"
+    title:
+      en: "8Hats Lab"
+      ru: "8Hats Lab"
+  menu:
+    my_ai_readiness:
+      en: "My AI Readiness"
+      ru: "Моя ИИ-готовность"
+    community:
+      en: "Community"
+      ru: "Сообщество"
+    lab_notes:
+      en: "Lab Notes"
+      ru: "Заметки лаборатории"
+    workshops:
+      en: "Workshops"
+      ru: "Воркшопы"
+    sprints:
+      en: "Sprints"
+      ru: "Спринты"
+    consultations:
+      en: "Consultations"
+      ru: "Консультации"
+    agents:
+      en: "Agents"
+      ru: "Агенты"
+    skills:
+      en: "Skills"
+      ru: "Навыки"
+  sections:
+    growth:
+      en: "Growth"
+      ru: "Развитие"
+    my_digital_team:
+      en: "My Digital Team"
+      ru: "Моя цифровая команда"
+  user:
+    my_details:
+      en: "My details"
+      ru: "Мои данные"
+    logout:
+      en: "Log out"
+      ru: "Выйти"
+  locale_selector:
+    en: "EN"
+    ru: "RU"

@@ -1,0 +1,36 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "noEmit": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [{ "name": "next" }],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@community/engine": ["../../packages/engine/src"],
+      "@community/content": ["../../packages/content/src"],
+      "@community/ui": ["../../packages/ui/src"],
+      "@community/database": ["../../packages/database/src"],
+      "@community/theme": ["../../packages/theme/src"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "../../packages/engine/src/**/*.ts",
+    "../../packages/content/src/**/*.ts",
+    "../../packages/ui/src/**/*.ts",
+    "../../packages/ui/src/**/*.tsx",
+    "../../packages/database/src/**/*.ts",
+    "../../packages/theme/src/**/*.ts",
+    "../../packages/theme/src/**/*.tsx"
+  ],
+  "exclude": ["node_modules"]
+}

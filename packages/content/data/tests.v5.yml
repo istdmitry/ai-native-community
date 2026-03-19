@@ -1,0 +1,86 @@
+tests:
+  - id: starter6_all_yes_high_baseline
+    description: "All Starter 6 cases answered YES."
+    answers:
+      - item_id: case.2C
+        answer_id: yes
+      - item_id: case.3B
+        answer_id: yes
+      - item_id: case.4A
+        answer_id: yes
+      - item_id: case.5A
+        answer_id: yes
+      - item_id: case.5B
+        answer_id: yes
+      - item_id: case.6C
+        answer_id: yes
+    expected:
+      overall_level: 2
+      public_pillars:
+        context_system: 2
+        orchestration_load: 3
+        verification_control: 4
+      gated_pillars:
+        codification_reuse: 4
+        personal_fit: 5
+      high_baseline: true
+
+  - id: starter6_only_one_yes
+    description: "Only context case YES; all others NOT YET."
+    answers:
+      - item_id: case.2C
+        answer_id: yes
+      - item_id: case.3B
+        answer_id: no
+      - item_id: case.4A
+        answer_id: no
+      - item_id: case.5A
+        answer_id: no
+      - item_id: case.5B
+        answer_id: no
+      - item_id: case.6C
+        answer_id: no
+    expected:
+      overall_level: 1
+      public_pillars:
+        context_system: 2
+        orchestration_load: 1
+        verification_control: 1
+      high_baseline: false
+
+  - id: calibrated_level4_profile
+    description: "Signals align to Level 3-5 across pillars based on v2 content signals."
+    answers:
+      - item_id: case.5A
+        answer_id: yes
+      - item_id: case.5B
+        answer_id: yes
+      - item_id: ms.2
+        answer_id: ms2.e    # orchestration_load L4 (was ms2.d which is context L3)
+      - item_id: qq.2
+        answer_id: qq2.d    # context_system L4 (was qq2.c)
+      - item_id: ms.1
+        answer_id: ms1.d    # verification_control L4
+      - item_id: qq.3
+        answer_id: qq3.c    # orchestration_load L4 (was qq3.b)
+    expected:
+      overall_level: 4
+      public_pillars:
+        context_system: 4
+        orchestration_load: 4
+        verification_control: 4
+      gated_pillars:
+        codification_reuse: 4
+        personal_fit: 5
+      high_baseline: false
+
+  - id: horizon_case_does_not_affect_level
+    description: "L7 horizon case should not raise overall level."
+    answers:
+      - item_id: case.7A
+        answer_id: yes
+      - item_id: case.1A
+        answer_id: yes
+    expected:
+      overall_level: 1
+      horizon_yes: true

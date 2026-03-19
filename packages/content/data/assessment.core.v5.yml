@@ -1,0 +1,1596 @@
+
+meta:
+  id: ai_native_levels_assessment
+  version: v2
+  locale: en
+  title: AI Native Levels Assessment
+  short_title: "Reliable AI Assessment"
+  description: "Guided assessment to map working mode (L1-L7) and constraints across five pillars. Includes pre-screener, smart follow-ups, and track-based routing."
+
+# =============================================================================
+# PILLARS
+# =============================================================================
+
+pillars:
+  - id: context_system
+    name: Context System
+    description: "How context is captured, travels across tools, stays fresh, and gets updated."
+    visibility: public
+  - id: orchestration_load
+    name: Orchestration Load
+    description: "How much routing depends on you versus workflows with defined handoffs and escalation."
+    visibility: public
+  - id: verification_control
+    name: "Verification & Control"
+    description: "How much you can trust outputs without supervision: standards, checkpoints, and exception handling."
+    visibility: public
+  - id: codification_reuse
+    name: Codification & Reuse
+    description: "Whether outputs become maintained assets instead of abandoned artifacts."
+    visibility: gated
+  - id: personal_fit
+    name: Personal Fit & Adaptation
+    description: "Whether the system matches your cognitive patterns and stays aligned as you evolve."
+    visibility: gated
+
+# =============================================================================
+# LEVELS
+# =============================================================================
+
+levels:
+  - id: L1
+    name: Level 1
+    mode_name: Ad Hoc Executor
+  - id: L2
+    name: Level 2
+    mode_name: Repeatable Operator
+  - id: L3
+    name: Level 3
+    mode_name: Manual Orchestrator
+  - id: L4
+    name: Level 4
+    mode_name: Process Orchestrator
+  - id: L5
+    name: Level 5
+    mode_name: Personalized Delegator
+  - id: L6
+    name: Level 6
+    mode_name: Digital Team Lead
+  - id: L7
+    name: Level 7
+    mode_name: Networked Teams
+
+# =============================================================================
+# PRE-SCREENER (v5.5 NEW)
+# =============================================================================
+
+prescreener:
+  intro:
+    title: "Let's personalize your assessment"
+    subtitle: "3 quick questions so we know where to start"
+    cta: "Get Started"
+
+  questions:
+    - id: ps.1
+      prompt: "How often do you use AI chats?"
+      answers:
+        - id: ps.1.a
+          label: "Most days"
+          points: 2
+        - id: ps.1.b
+          label: "A few times a week"
+          points: 1
+        - id: ps.1.c
+          label: "Occasionally"
+          points: 0
+        - id: ps.1.d
+          label: "Tried it once or twice"
+          points: 0
+
+    - id: ps.2
+      prompt: "How many different AI products do you use?"
+      answers:
+        - id: ps.2.a
+          label: "3 or more"
+          subtext: "ChatGPT, Claude, Gemini, Midjourney, etc."
+          points: 2
+        - id: ps.2.b
+          label: "2 tools"
+          points: 1
+        - id: ps.2.c
+          label: "Just one"
+          points: 0
+        - id: ps.2.d
+          label: "Not sure / none regularly"
+          points: 0
+
+    - id: ps.3
+      prompt: "Do you have saved prompts, templates, or go-to ways of using AI?"
+      answers:
+        - id: ps.3.a
+          label: "Yes, I've built up a collection"
+          points: 2
+        - id: ps.3.b
+          label: "A few things I reuse"
+          points: 1
+        - id: ps.3.c
+          label: "No, I start fresh each time"
+          points: 0
+        - id: ps.3.d
+          label: "What do you mean?"
+          points: 0
+
+  routing:
+    threshold: 3  # Points 0-2 = beginner, 3-6 = advanced
+    tracks:
+      - id: beginner
+        condition: "points <= 2"
+      - id: advanced
+        condition: "points >= 3"
+
+# =============================================================================
+# TRACK CONFIGURATIONS (v5.5 NEW)
+# =============================================================================
+# Note: v5.5 uses track-specific starter_6 sets defined below.
+# The `starter_6: true` and `starter_6_order` flags on individual cases
+# are v5.0 legacy references (for Advanced track backwards compatibility).
+# In v5.5, tracks.starter_6 takes precedence.
+
+tracks:
+  - id: beginner
+    name: "Beginner Track"
+    target_levels: [1, 2]
+    language_mode: plain  # DEFERRED: plain/standard language variants not yet implemented
+    tone: encouraging
+    high_baseline_gate: false  # Beginners skip high-baseline gate
+
+    starter_6:
+      - case.1A  # AI on sidelines
+      - case.1B  # Generic responses
+      - case.2A  # Inconsistent results
+      - case.2B  # Prompt roulette
+      - case.2C  # Nothing carries over
+      - case.3A  # Repeating myself
+
+    skip_cases:
+      - case.5A
+      - case.5B
+      - case.5C
+      - case.6A
+      - case.6B
+      - case.6C
+      - case.7A
+
+    result_framing:
+      intro: "Here's where you are on your AI journey"
+      encouragement: "You're not alone — most professionals are at this stage."
+
+  - id: advanced
+    name: "Advanced Track"
+    target_levels: [3, 4, 5, 6, 7]
+    language_mode: standard  # DEFERRED: plain/standard language variants not yet implemented
+    tone: challenge
+    high_baseline_gate: true  # Advanced users may trigger high-baseline
+
+    starter_6:
+      - case.3B  # Tool silos
+      - case.4A  # Babysitting AI
+      - case.4B  # Trust but verify
+      - case.5A  # Context decay
+      - case.5B  # AI doesn't know me
+      - case.6C  # Can't hand off decisions
+
+    skip_cases:
+      - case.1A
+      - case.1B
+
+    result_framing:
+      intro: "Here's your advanced AI working mode"
+      encouragement: "You're ahead of most — let's find your edge cases."
+
+# =============================================================================
+# DEFAULT ANSWER LABELS
+# =============================================================================
+
+default_answers:
+  yes:
+    label: "YES"
+    subtext: "That's me"
+  no:
+    label: "NOPE"
+    subtext: "Not my situation"
+
+# =============================================================================
+# UI STRINGS
+# =============================================================================
+
+ui_strings:
+  accuracy_tiers:
+    low: Low accuracy
+    medium: Medium accuracy
+    high: High accuracy
+  progress:
+    starter_in_progress: "Mapping your constraints..."
+    starter_complete: "Core mapping complete!"
+    accuracy_prompt: "Accuracy: Low | Want to improve it?"
+  micro_feedback:
+    low_levels:
+      yes: "You're not alone. This is where most people are."
+      no: "Interesting. You've moved past this constraint."
+    level5:
+      yes: "This is advanced territory. Few people experience this problem."
+      no: "That's expected. Most people don't reach this level yet."
+    level6:
+      yes: "You're in rare company. We'd love to hear your story."
+      no: "That's expected. Almost nobody operates at this level yet."
+    level7:
+      yes: "You're building the future. Let's talk."
+      no: "This is still emerging, even for advanced users."
+  follow_up:
+    header: "Follow-up"
+    context_line: "You answered {answer} to:"
+
+# =============================================================================
+# CARDS (NON-CASE SCREENS)
+# =============================================================================
+
+cards:
+  step0_reality_check:
+    title: "Before You Start"
+    body: |
+      The Context: 95% of people currently operate at Levels 1-2. Levels 6-7 are aspirational; almost no one is there yet.
+
+      The Focus: We're mapping your behaviors and habits with AI, not your technical skills. There are no right or wrong answers.
+
+      The Journey: First, 3 quick questions about how you use AI today (~30 seconds). Then, 6 specific situations — just tell us which ones feel familiar (~2 minutes). After that, you can refine your results or see them immediately.
+
+      The Outcome: A clear picture of where you are on the AI adoption curve, what's holding you back, and one concrete next step.
+    cta_start: "Let's go"
+
+  high_baseline_gate:
+    title: "High baseline detected"
+    body: |
+      Your answers show unusually strong fundamentals.
+      You're past the common Level 1-3 constraints.
+
+      We can run advanced calibration to detect Level 3+,
+      or show a provisional result now.
+    cta_advanced: "Run advanced calibration"
+    cta_provisional: "See provisional result"
+
+  accuracy_choice:
+    title: "Improve accuracy?"
+    body: "Choose one optional path to refine your result."
+    options:
+      - id: quick_questions
+        label: "Quick questions (3) - about 1 minute"
+      - id: micro_scenarios
+        label: "Micro-scenarios (3) - about 2-3 minutes"
+      - id: more_cases
+        label: "More cases (4) - about 2 minutes"
+      - id: explore_all
+        label: "Explore all cases (6-8 minutes)"
+      - id: see_result
+        label: "See my result (0 minutes)"
+
+  habit_checkpoint:
+    title: "Your next habit (pick one)"
+    intro: "Based on your constraints, here is the smallest change that compounds:"
+    cta_accept: "I'll try this"
+    cta_skip: "Skip for now"
+    by_pillar:
+      context_system:
+        text: "Before starting any AI task, spend 30 seconds writing the frame (what you want, why it matters, constraints)."
+      orchestration_load:
+        text: "Pick one recurring workflow. Write down the steps. Use the same steps next time."
+      verification_control:
+        text: "Define \"done\" before you start. Check against it before accepting output."
+
+  compare_yourself:
+    title: "Where do you stand?"
+    intro: "Based on 500+ assessments:"
+    bullets:
+      - "Your level: {level}"
+      - "Most common level: {most_common_level} ({most_common_percent})"
+      - "Your strongest pillar: {strongest_pillar} (top {strongest_percent})"
+      - "Your constraint: {constraint_pillar} ({constraint_percent} share this)"
+    note: "This isn't a competition. Knowing where others struggle can help you feel less alone."
+
+# =============================================================================
+# CASES (19 total)
+# =============================================================================
+
+cases:
+
+  # ---------------------------------------------------------------------------
+  # CASE 1A - L1 Orchestration
+  # ---------------------------------------------------------------------------
+  - id: case.1A
+    title: "AI stays on the sidelines (like a gym membership)"
+    body: "AI isn't really part of how I work. I've tried AI chats like ChatGPT, Claude, Gemini, or DeepSeek a few times, but it didn't stick. It's still a side thing, not a real part of my workflow."
+    level: 1
+    pillar: orchestration_load
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not my situation"
+
+    signals:
+      yes:
+        - pillar: orchestration_load
+          level: 1
+          weight: 1.0
+      no: []  # No signal - other cases will detect their level
+
+    follow_up_yes: null
+    follow_up_no: null
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for an unused tool placed at the edge of a clean desk while the main workspace is active. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+  # ---------------------------------------------------------------------------
+  # CASE 1B - L1 Context
+  # ---------------------------------------------------------------------------
+  - id: case.1B
+    title: "Groundhog Day: starting from zero every time"
+    body: "Using AI feels like starting from scratch every time. It doesn't know my work, my preferences, or what I've done before. I get generic answers unless I put in a lot of effort each time."
+    level: 1
+    pillar: context_system
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not my situation"
+
+    signals:
+      yes:
+        - pillar: context_system
+          level: 1
+          weight: 1.0
+      no: []
+
+    follow_up_yes: null
+
+    follow_up_no:
+      prompt: "Is that because AI remembers your background and preferences?"
+      answers:
+        yes:
+          label: "YES"
+          subtext: "It knows my stuff"
+        no:
+          label: "NOPE"
+          subtext: "I just don't use it much"
+      signals:
+        yes:
+          - pillar: context_system
+            level: 4
+            weight: 0.8
+        no:
+          - pillar: context_system
+            level: 1
+            weight: 0.5
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for a blank page or whiteboard being wiped clean, representing starting from zero each time. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+  # ---------------------------------------------------------------------------
+  # CASE 2A - L2 Verification
+  # ---------------------------------------------------------------------------
+  - id: case.2A
+    title: "Demo magic vs Monday morning reality"
+    body: "I've tried to use AI for real work, but the results are too inconsistent. I can't rely on it."
+    level: 2
+    pillar: verification_control
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not my situation"
+
+    signals:
+      yes:
+        - pillar: verification_control
+          level: 2
+          weight: 1.0
+      no: []
+
+    follow_up_yes:
+      prompt: "Have you found ways to make at least some tools reliable?"
+      answers:
+        yes:
+          label: "YES"
+          subtext: "I've figured some things out"
+        no:
+          label: "NOPE"
+          subtext: "Still struggling"
+      signals:
+        yes:
+          - pillar: verification_control
+            level: 4
+            weight: 0.7
+        no:
+          - pillar: verification_control
+            level: 2
+            weight: 1.0
+
+    follow_up_no:
+      prompt: "Is that because you've figured out how to get reliable results?"
+      answers:
+        yes:
+          label: "YES"
+          subtext: "I've got it working"
+        no:
+          label: "NOPE"
+          subtext: "Haven't tried much yet"
+      signals:
+        yes:
+          - pillar: verification_control
+            level: 4
+            weight: 1.0
+        no:
+          - pillar: verification_control
+            level: 1
+            weight: 0.5
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for a sleek prototype structure that sags or fails under a small weight, representing reliability dropping in real work. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+  # ---------------------------------------------------------------------------
+  # CASE 2B - L2 Verification
+  # ---------------------------------------------------------------------------
+  - id: case.2B
+    title: "Prompt roulette: same input, surprise output"
+    body: "I get inconsistent results. Sometimes AI nails it, then I try something similar and it completely misses. I can't figure out what makes the difference."
+    level: 2
+    pillar: verification_control
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not my situation"
+
+    signals:
+      yes:
+        - pillar: verification_control
+          level: 2
+          weight: 1.0
+      no: []
+
+    follow_up_yes:
+      prompt: "Have you figured out what makes the results consistent?"
+      answers:
+        yes:
+          label: "YES"
+          subtext: "At least for some things"
+        no:
+          label: "NOPE"
+          subtext: "Still feels random"
+      signals:
+        yes:
+          - pillar: context_system
+            level: 3
+            weight: 0.7
+          - pillar: codification_reuse
+            level: 2
+            weight: 0.5
+            scope: gated_only
+        no:
+          - pillar: verification_control
+            level: 2
+            weight: 1.0
+
+    follow_up_no:
+      prompt: "Is that because you've figured out how to get consistent results?"
+      answers:
+        yes:
+          label: "YES"
+          subtext: "I know what works"
+        no:
+          label: "NOPE"
+          subtext: "Haven't used AI much"
+      signals:
+        yes:
+          - pillar: verification_control
+            level: 4
+            weight: 1.0
+        no:
+          - pillar: verification_control
+            level: 1
+            weight: 0.5
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for clean mechanical dials or an unstable gauge needle swinging between outcomes, representing randomness and lack of control. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+  # ---------------------------------------------------------------------------
+  # CASE 2C - L2 Context (STARTER 6)
+  # ---------------------------------------------------------------------------
+  - id: case.2C
+    title: "One chat for everything, but nothing carries over"
+    body: "I use AI chats a lot. But everything I've told it is scattered across old conversations — some outdated. When I switch to email, documents, or other apps, that knowledge doesn't follow me."
+    level: 2
+    pillar: context_system
+    starter_6: true
+    starter_6_order: 1
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not my situation"
+
+    signals:
+      yes:
+        - pillar: context_system
+          level: 2
+          weight: 1.0
+      no: []
+
+    follow_up_yes: null
+
+    follow_up_no:
+      prompt: "Is that because your context does travel across tools?"
+      answers:
+        yes:
+          label: "YES"
+          subtext: "I've got systems for that"
+        no:
+          label: "NOPE"
+          subtext: "I don't use AI chats much"
+      signals:
+        yes:
+          - pillar: context_system
+            level: 4
+            weight: 1.0
+        no:
+          - pillar: context_system
+            level: 1
+            weight: 0.5
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for multiple message bubbles or folders floating disconnected with faint broken links, representing context that does not travel across spaces. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+  # ---------------------------------------------------------------------------
+  # CASE 3A - L3 Context
+  # ---------------------------------------------------------------------------
+  - id: case.3A
+    title: "I keep explaining everything again (and again)"
+    body: "I keep re-explaining my situation across different AI tools. The full picture only exists in my head. When a tool does have the right background, it works so much better — which makes the re-explaining more frustrating."
+    level: 3
+    pillar: context_system
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not my situation"
+
+    signals:
+      yes:
+        - pillar: context_system
+          level: 3
+          weight: 1.0
+      no: []
+
+    follow_up_yes: null
+
+    follow_up_no:
+      prompt: "Is that because your tools already share context?"
+      answers:
+        yes:
+          label: "YES"
+          subtext: "Context flows between tools"
+        no:
+          label: "NOPE"
+          subtext: "I only use one AI tool"
+      signals:
+        yes:
+          - pillar: context_system
+            level: 4
+            weight: 1.0
+        no:
+          - pillar: orchestration_load
+            level: 2
+            weight: 0.5
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for a neat stack of identical briefing cards or repeated sticky notes, implying repeated explanations. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+  # ---------------------------------------------------------------------------
+  # CASE 3B - L3 Orchestration (STARTER 6)
+  # ---------------------------------------------------------------------------
+  - id: case.3B
+    title: "Smart in isolation, dumb in combination"
+    body: "AI helps inside individual apps. But nothing connects between them. Each tool is smart on its own and clueless about what I'm doing in the others."
+    level: 3
+    pillar: orchestration_load
+    starter_6: true
+    starter_6_order: 2
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not my situation"
+
+    signals:
+      yes:
+        - pillar: orchestration_load
+          level: 3
+          weight: 1.0
+      no: []
+
+    follow_up_yes: null
+
+    follow_up_no:
+      prompt: "Is that because your AI tools are already connected?"
+      answers:
+        yes:
+          label: "YES"
+          subtext: "They work together"
+        no:
+          label: "NOPE"
+          subtext: "I only use one AI tool"
+      signals:
+        yes:
+          - pillar: orchestration_load
+            level: 4
+            weight: 1.0
+        no:
+          - pillar: orchestration_load
+            level: 2
+            weight: 0.5
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for several gears or puzzle pieces that look correct individually but fail to interlock, representing tools that do not combine into workflows. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+  # ---------------------------------------------------------------------------
+  # CASE 3C - L3 Context
+  # ---------------------------------------------------------------------------
+  - id: case.3C
+    title: "Good context in one place, chaos everywhere else"
+    body: "In some apps or projects, working with AI feels smooth — it gets what I'm doing. In others (especially chat tools), it's messy and hard to fix. I've seen what good feels like, and now the bad is more frustrating."
+    level: 3
+    pillar: context_system
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not my situation"
+
+    signals:
+      yes:
+        - pillar: context_system
+          level: 3
+          weight: 1.0
+      no: []
+
+    follow_up_yes: null
+    follow_up_no: null  # Nuanced enough - no follow-up needed
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for one sharp, clear lens or map panel next to several blurred panels, representing clarity in one place and fog elsewhere. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+  # ---------------------------------------------------------------------------
+  # CASE 3D - L3 Verification
+  # ---------------------------------------------------------------------------
+  - id: case.3D
+    title: "Circular conversations that go nowhere"
+    body: "I spend time correcting and clarifying what I want from AI. The conversation gets longer, but we never quite align. Something about how we're working together is broken."
+    level: 3
+    pillar: verification_control
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not my situation"
+
+    signals:
+      yes:
+        - pillar: verification_control
+          level: 3
+          weight: 1.0
+      no: []
+
+    follow_up_yes:
+      prompt: "Have you found a way to break out of these loops?"
+      answers:
+        yes:
+          label: "YES"
+          subtext: "I have methods that work"
+        no:
+          label: "NOPE"
+          subtext: "Still figuring it out"
+      signals:
+        yes:
+          - pillar: verification_control
+            level: 4
+            weight: 0.7
+        no:
+          - pillar: verification_control
+            level: 3
+            weight: 1.0
+
+    follow_up_no:
+      prompt: "Is that because your AI conversations usually converge quickly?"
+      answers:
+        yes:
+          label: "YES"
+          subtext: "We align fast"
+        no:
+          label: "NOPE"
+          subtext: "I don't have long AI conversations"
+      signals:
+        yes:
+          - pillar: verification_control
+            level: 4
+            weight: 1.0
+        no:
+          - pillar: verification_control
+            level: 1
+            weight: 0.5
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for clean looping arrows circling without converging, representing conversation without alignment. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+  # ---------------------------------------------------------------------------
+  # CASE 3E - L3 Personal Fit (GATED)
+  # ---------------------------------------------------------------------------
+  - id: case.3E
+    title: "AI doesn't know which hat I'm wearing"
+    body: "I have different parts of my life — work, personal projects, family. AI mixes them up. It pulls the wrong assumptions because it doesn't know which \"me\" is talking."
+    level: 3
+    pillar: personal_fit
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not my situation"
+
+    signals:
+      yes:
+        - pillar: personal_fit
+          level: 3
+          weight: 1.0
+          scope: gated_only
+      no: []
+
+    follow_up_yes: null
+
+    follow_up_no:
+      prompt: "Is that because you keep these contexts separate in AI?"
+      answers:
+        yes:
+          label: "YES"
+          subtext: "I have separate setups"
+        no:
+          label: "NOPE"
+          subtext: "I only use AI for one area of life"
+      signals:
+        yes:
+          - pillar: personal_fit
+            level: 4
+            weight: 1.0
+            scope: gated_only
+        no:
+          - pillar: orchestration_load
+            level: 2
+            weight: 0.3
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for overlapping lanes or tags that collide, representing mixed roles and contexts. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+  # ---------------------------------------------------------------------------
+  # CASE 4A - L4 Verification (STARTER 6)
+  # ---------------------------------------------------------------------------
+  - id: case.4A
+    title: "Workflows exist, but fall apart without me"
+    body: "I can run multi-step work with AI. But when things get busy, it falls apart. Quality checks and handoffs depend on me. If I'm not actively managing it, things fall apart."
+    level: 4
+    pillar: verification_control
+    starter_6: true
+    starter_6_order: 3
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not my situation"
+
+    signals:
+      yes:
+        - pillar: verification_control
+          level: 4
+          weight: 1.0
+      no: []
+
+    follow_up_yes: null
+
+    follow_up_no:
+      prompt: "Is that because your workflows run reliably without you?"
+      answers:
+        yes:
+          label: "YES"
+          subtext: "They run on their own"
+        no:
+          label: "NOPE"
+          subtext: "I don't have multi-step AI workflows"
+      signals:
+        yes:
+          - pillar: verification_control
+            level: 5
+            weight: 1.0
+          - pillar: orchestration_load
+            level: 5
+            weight: 0.7
+        no:
+          - pillar: orchestration_load
+            level: 2
+            weight: 0.5
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for a clean workflow pipeline with missing checkpoint nodes or a small leak, representing lack of standardization and reliance on manual intervention. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+  # ---------------------------------------------------------------------------
+  # CASE 4B - L4 Verification
+  # ---------------------------------------------------------------------------
+  - id: case.4B
+    title: "Looks right, isn't controlled"
+    body: "AI output often looks reasonable. But when I really check it, it doesn't meet my standards. The problem isn't effort — there's no consistent way to verify quality."
+    level: 4
+    pillar: verification_control
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not my situation"
+
+    signals:
+      yes:
+        - pillar: verification_control
+          level: 4
+          weight: 1.0
+      no: []
+
+    follow_up_yes: null
+
+    follow_up_no:
+      prompt: "Is that because you have reliable ways to verify AI output?"
+      answers:
+        yes:
+          label: "YES"
+          subtext: "I have quality checks"
+        no:
+          label: "NOPE"
+          subtext: "I don't use AI for important work"
+      signals:
+        yes:
+          - pillar: verification_control
+            level: 5
+            weight: 1.0
+        no:
+          - pillar: verification_control
+            level: 1
+            weight: 0.3
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for a sleek object that looks perfect but is subtly off-square, representing sounds right but fails control. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+  # ---------------------------------------------------------------------------
+  # CASE 5A - L4 Codification (STARTER 6, GATED)
+  # ---------------------------------------------------------------------------
+  - id: case.5A
+    title: "Keeping context fresh is the actual job"
+    body: "When AI has current information, it works much better. But keeping things up to date is tricky. Something is always slightly stale — and that's where things break."
+    level: 4
+    pillar: codification_reuse
+    starter_6: true
+    starter_6_order: 4
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not my situation"
+
+    signals:
+      yes:
+        - pillar: codification_reuse
+          level: 4
+          weight: 1.0
+          scope: gated_only
+      no: []
+
+    follow_up_yes: null
+
+    follow_up_no:
+      prompt: "Is that because your context stays fresh automatically?"
+      answers:
+        yes:
+          label: "YES"
+          subtext: "It updates itself"
+        no:
+          label: "NOPE"
+          subtext: "I haven't gotten this far"
+      signals:
+        yes:
+          - pillar: codification_reuse
+            level: 5
+            weight: 1.0
+            scope: gated_only
+        no:
+          - pillar: codification_reuse
+            level: 2
+            weight: 0.5
+            scope: gated_only
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for a clean dashboard element with a subtle stale indicator (fading refresh icon or drifting compass needle), representing context decay and update burden. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+  # ---------------------------------------------------------------------------
+  # CASE 5B - L5 Personal Fit (STARTER 6, GATED)
+  # ---------------------------------------------------------------------------
+  - id: case.5B
+    title: "I evolved, but my system didn't"
+    body: "My AI setup is following the \"old me.\" I documented my preferences and rules carefully, but then I changed — and the system didn't keep up."
+    level: 5
+    pillar: personal_fit
+    starter_6: true
+    starter_6_order: 5
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not my situation"
+
+    signals:
+      yes:
+        - pillar: personal_fit
+          level: 5
+          weight: 1.0
+          scope: gated_only
+      no: []
+
+    follow_up_yes: null
+
+    follow_up_no:
+      prompt: "Is that because your AI setup evolves with you?"
+      answers:
+        yes:
+          label: "YES"
+          subtext: "It adapts as I change"
+        no:
+          label: "NOPE"
+          subtext: "I don't have a documented setup"
+      signals:
+        yes:
+          - pillar: personal_fit
+            level: 6
+            weight: 1.0
+            scope: gated_only
+        no:
+          - pillar: personal_fit
+            level: 2
+            weight: 0.5
+            scope: gated_only
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for an abstract mirror reflection that lags behind (no person), representing drift between current patterns and system assumptions. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+  # ---------------------------------------------------------------------------
+  # CASE 5C - L5 Orchestration
+  # ---------------------------------------------------------------------------
+  - id: case.5C
+    title: "Automations that need babysitting"
+    body: "I've set up automations (Zapier, Make, or AI agents). They can run tasks, but I have to watch them. They break on unusual situations. The automation exists, but it's not truly automatic."
+    level: 5
+    pillar: orchestration_load
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not my situation"
+
+    signals:
+      yes:
+        - pillar: orchestration_load
+          level: 5
+          weight: 1.0
+      no: []
+
+    follow_up_yes: null
+
+    follow_up_no:
+      prompt: "Is that because your automations run reliably on their own?"
+      answers:
+        yes:
+          label: "YES"
+          subtext: "They handle edge cases"
+        no:
+          label: "NOPE"
+          subtext: "I don't have automations"
+      signals:
+        yes:
+          - pillar: orchestration_load
+            level: 6
+            weight: 1.0
+        no:
+          - pillar: orchestration_load
+            level: 3
+            weight: 0.5
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for a self-operating machine icon with frequent warning indicators (abstract), representing automation that still needs babysitting. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+  # ---------------------------------------------------------------------------
+  # CASE 6A - L6 Orchestration
+  # ---------------------------------------------------------------------------
+  - id: case.6A
+    title: "Chief Exception Handler (still me)"
+    body: "AI can do tasks, but it can't prioritize, resolve conflicts, or coordinate on my behalf. Every important decision or unusual situation comes back to me."
+    level: 6
+    pillar: orchestration_load
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not there yet"
+
+    signals:
+      yes:
+        - pillar: orchestration_load
+          level: 6
+          weight: 1.0
+      no: []
+
+    follow_up_yes: null
+    follow_up_no: null  # Advanced case - NO means "not there yet"
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for a single narrow gate or bottleneck valve controlling flow, representing everything escalating back to one point. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+  # ---------------------------------------------------------------------------
+  # CASE 6B - L6 Verification
+  # ---------------------------------------------------------------------------
+  - id: case.6B
+    title: "Delegation reveals what I never made explicit"
+    body: "As I try to hand off more to AI, I run into questions I never had to answer before: why I choose A over B, what matters when things conflict. I relied on gut feeling more than I realized."
+    level: 6
+    pillar: verification_control
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not there yet"
+
+    signals:
+      yes:
+        - pillar: verification_control
+          level: 6
+          weight: 1.0
+      no: []
+
+    follow_up_yes: null
+    follow_up_no: null  # Advanced case - NO means "not there yet"
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for a faint blueprint layer being revealed beneath a clean surface, representing implicit decision logic becoming explicit. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+  # ---------------------------------------------------------------------------
+  # CASE 6C - L6 Orchestration (STARTER 6)
+  # ---------------------------------------------------------------------------
+  - id: case.6C
+    title: "My decisions don't compound"
+    body: "I can save my preferences and rules, but AI still makes choices I wouldn't make. My judgment depends on the situation — I weigh things differently depending on context. I need the system to learn and improve as I do."
+    level: 6
+    pillar: orchestration_load
+    starter_6: true
+    starter_6_order: 6
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not there yet"
+
+    signals:
+      yes:
+        - pillar: orchestration_load
+          level: 6
+          weight: 1.0
+        - pillar: personal_fit
+          level: 5
+          weight: 0.5
+          scope: gated_only
+        - pillar: codification_reuse
+          level: 5
+          weight: 0.5
+          scope: gated_only
+      no: []
+
+    follow_up_yes: null
+    follow_up_no: null  # Advanced case - NO means "not there yet"
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for solid blocks scattered versus a few stacked into a stable structure, representing decisions that do not compound. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+  # ---------------------------------------------------------------------------
+  # CASE 7A - L7 Orchestration (HORIZON)
+  # ---------------------------------------------------------------------------
+  - id: case.7A
+    title: "My setup doesn't travel to others"
+    body: "My AI setup works well for me. But when I try to share it with a colleague or hand off part of my workflow, it breaks down. What I've built is personal, not transferable."
+    level: 7
+    pillar: orchestration_load
+
+    answers:
+      yes:
+        label: "YES"
+        subtext: "That's me"
+      no:
+        label: "NOPE"
+        subtext: "Not there yet"
+
+    signals:
+      yes:
+        - pillar: orchestration_load
+          level: 7
+          weight: 1.0
+          scope: horizon_only
+      no: []
+
+    follow_up_yes: null
+    follow_up_no: null  # Horizon case
+
+    image_prompt: "Minimalist editorial illustration, calm executive tone. Visual metaphor for a personal toolkit that does not fit into a shared workspace, keys that do not match locks. Clean shapes, subtle gradients, neutral palette, no text, no logos, no faces, no robots, no sci-fi. Composition suitable for a card thumbnail. High clarity."
+
+# =============================================================================
+# MICRO-SCENARIOS (3)
+# =============================================================================
+
+micro_scenarios:
+  - id: ms.1
+    title: "AI gives you a draft you don't like"
+    prompt: "What do you do to prevent this next time?"
+    options:
+      - id: ms1.a
+        text: "Nothing — I'll just fix it each time"
+        signals:
+          - pillar: verification_control
+            level: 1
+            weight: 1.5
+      - id: ms1.b
+        text: "Save the prompt that worked better"
+        signals:
+          - pillar: verification_control
+            level: 2
+            weight: 1.5
+      - id: ms1.c
+        text: "Create a template I can reuse for this type of task"
+        signals:
+          - pillar: context_system
+            level: 3
+            weight: 1.5
+      - id: ms1.d
+        text: "Add a checklist to verify the output meets my standards"
+        signals:
+          - pillar: verification_control
+            level: 4
+            weight: 1.5
+      - id: ms1.e
+        text: "Build it into a standard process with quality checks"
+        signals:
+          - pillar: orchestration_load
+            level: 4
+            weight: 1.5
+      - id: ms1.f
+        text: "Document my decision-making rules so AI knows what tradeoffs I'd make"
+        signals:
+          - pillar: verification_control
+            level: 6
+            weight: 1.5
+          - pillar: codification_reuse
+            level: 5
+            weight: 0.5
+            scope: gated_only
+
+  - id: ms.2
+    title: "You're starting a new task with AI"
+    prompt: "What do you do first?"
+    options:
+      - id: ms2.a
+        text: "Just ask and see what happens"
+        signals:
+          - pillar: context_system
+            level: 1
+            weight: 1.5
+      - id: ms2.b
+        text: "Think carefully about how to phrase my request"
+        signals:
+          - pillar: verification_control
+            level: 2
+            weight: 1.5
+      - id: ms2.c
+        text: "Use a prompt I've saved that works well"
+        signals:
+          - pillar: codification_reuse
+            level: 2
+            weight: 1.5
+            scope: gated_only
+      - id: ms2.d
+        text: "Use a template with background info already included"
+        signals:
+          - pillar: context_system
+            level: 3
+            weight: 1.5
+      - id: ms2.e
+        text: "Follow a standard process I've set up for this type of task"
+        signals:
+          - pillar: orchestration_load
+            level: 4
+            weight: 1.5
+      - id: ms2.f
+        text: "Hand it to a specialized AI setup I've built for this kind of work"
+        signals:
+          - pillar: orchestration_load
+            level: 6
+            weight: 1.5
+          - pillar: personal_fit
+            level: 5
+            weight: 0.5
+            scope: gated_only
+
+  - id: ms.3
+    title: "You need the same quality next week"
+    prompt: "How do you make it repeatable?"
+    options:
+      - id: ms3.a
+        text: "Hope I remember what I did"
+        signals:
+          - pillar: codification_reuse
+            level: 1
+            weight: 1.5
+            scope: gated_only
+      - id: ms3.b
+        text: "Save the prompt that worked"
+        signals:
+          - pillar: codification_reuse
+            level: 2
+            weight: 1.5
+            scope: gated_only
+      - id: ms3.c
+        text: "Create a template with the background info I'll need"
+        signals:
+          - pillar: context_system
+            level: 3
+            weight: 1.5
+      - id: ms3.d
+        text: "Add quality checkpoints I can verify against"
+        signals:
+          - pillar: verification_control
+            level: 4
+            weight: 1.5
+      - id: ms3.e
+        text: "Package it as something I maintain and keep updated"
+        signals:
+          - pillar: codification_reuse
+            level: 5
+            weight: 1.5
+            scope: gated_only
+      - id: ms3.f
+        text: "Set it up so it runs without me coordinating everything"
+        signals:
+          - pillar: orchestration_load
+            level: 6
+            weight: 1.5
+
+# =============================================================================
+# QUICK QUESTIONS (3)
+# =============================================================================
+
+quick_questions:
+  - id: qq.1
+    title: "When AI output is wrong, what do you improve first?"
+    prompt: "Choose the first thing you change."
+    options:
+      - id: qq1.a
+        text: "I just fix the output manually"
+        signals:
+          - pillar: verification_control
+            level: 1
+            weight: 2.0
+      - id: qq1.b
+        text: "How I phrased my request"
+        signals:
+          - pillar: verification_control
+            level: 2
+            weight: 2.0
+      - id: qq1.c
+        text: "The template or background info I gave it"
+        signals:
+          - pillar: context_system
+            level: 3
+            weight: 2.0
+      - id: qq1.d
+        text: "My quality checklist or verification steps"
+        signals:
+          - pillar: verification_control
+            level: 4
+            weight: 2.0
+      - id: qq1.e
+        text: "The overall process or workflow"
+        signals:
+          - pillar: orchestration_load
+            level: 4
+            weight: 2.0
+      - id: qq1.f
+        text: "The rules for how decisions should be made"
+        signals:
+          - pillar: verification_control
+            level: 6
+            weight: 2.0
+
+  - id: qq.2
+    title: "When you switch tools, what happens to your context?"
+    prompt: "Choose the closest answer."
+    options:
+      - id: qq2.a
+        text: "I don't switch much — I only use one tool occasionally"
+        signals:
+          - pillar: context_system
+            level: 1
+            weight: 2.0
+      - id: qq2.b
+        text: "It resets — I start fresh each time"
+        signals:
+          - pillar: context_system
+            level: 2
+            weight: 2.0
+      - id: qq2.c
+        text: "I copy it over manually"
+        signals:
+          - pillar: context_system
+            level: 3
+            weight: 2.0
+      - id: qq2.d
+        text: "A process or template handles it"
+        signals:
+          - pillar: context_system
+            level: 4
+            weight: 2.0
+      - id: qq2.e
+        text: "It flows automatically as part of how I work"
+        signals:
+          - pillar: context_system
+            level: 5
+            weight: 2.0
+
+  - id: qq.3
+    title: "In multi-step work, who coordinates and handles exceptions?"
+    prompt: "Choose the closest answer."
+    options:
+      - id: qq3.a
+        text: "I don't really do multi-step work with AI"
+        signals:
+          - pillar: orchestration_load
+            level: 1
+            weight: 2.0
+      - id: qq3.b
+        text: "Me — I coordinate everything manually"
+        signals:
+          - pillar: orchestration_load
+            level: 3
+            weight: 2.0
+      - id: qq3.c
+        text: "A defined process with checkpoints"
+        signals:
+          - pillar: orchestration_load
+            level: 4
+            weight: 2.0
+      - id: qq3.d
+        text: "Automations handle parts, I supervise exceptions"
+        signals:
+          - pillar: orchestration_load
+            level: 5
+            weight: 2.0
+      - id: qq3.e
+        text: "AI roles handle it, with rules for when to involve me"
+        signals:
+          - pillar: orchestration_load
+            level: 6
+            weight: 2.0
+
+# =============================================================================
+# RESULT BLOCKS
+# =============================================================================
+
+result_blocks:
+  - id: result.L1
+    level: 1
+    title: "Level 1 - Ad Hoc Executor"
+    you_are: "Using AI for isolated tasks. Nothing stable or repeatable yet."
+    breaks: "Each session starts from zero. Results depend on luck and your effort. Nothing compounds."
+    cost: "Every good result is a one-off. You can't rely on consistency."
+    next_move: "Adopt one repeatable habit. Capture a simple frame (template or checklist) and reuse it."
+    note: null
+
+  - id: result.L2
+    level: 2
+    title: "Level 2 - Repeatable Operator"
+    you_are: "Repeating tasks, but context is fragmented across tools and projects."
+    breaks: "Portability. The same context rebuilds and drifts across services. Trust requires constant checking."
+    cost: "Time spent re-explaining. Quality variance you can't predict."
+    next_move: "Build a context pack or template that travels with the work."
+    note: null
+
+  - id: result.L3
+    level: 3
+    title: "Level 3 - Manual Orchestrator"
+    you_are: "You are the message bus. You coordinate multiple AIs or agents manually."
+    breaks: "Throughput, version drift, switching costs, and hidden assumptions that only you know."
+    cost: "Every handoff requires your attention. Parallel work is limited by your bandwidth."
+    next_move: "Standardize one workflow so routing is no longer manual."
+    note: null
+
+  - id: result.L4
+    level: 4
+    title: "Level 4 - Process Orchestrator"
+    you_are: "Running multi-step work through standardized processes with checkpoints."
+    breaks: "System management. Standards, routing rules, escalation, and review load pile up."
+    cost: "Maintaining the process becomes work. Exceptions still require you."
+    next_move: "Codify review and reuse so the process runs without constant supervision."
+    note: null
+
+  - id: result.L5
+    level: 5
+    title: "Level 5 - Personalized Delegator"
+    you_are: "Operating with a system tuned to your cognitive patterns. Orchestration is partly delegated."
+    breaks: "Drift. Your patterns change; the system lags behind. Personalization goes stale."
+    cost: "The system follows the old you. Misalignment grows silently."
+    next_move: "Establish refresh mechanisms for context and behavior."
+    note: null
+
+  - id: result.L6
+    level: 6
+    title: "Level 6 - Digital Team Lead"
+    you_are: "Operating with a role-based digital team and explicit escalation rules."
+    breaks: "Governance. Boundaries, accountability, and who decides when roles conflict."
+    cost: "Scaling creates ambiguity. Decision ownership becomes unclear."
+    next_move: "Maintenance discipline and clear decision ownership across roles."
+    note: "You're in rare territory. We'd genuinely love to hear how you got here."
+
+  - id: result.L7
+    level: 7
+    title: "Level 7 - Networked Teams (Horizon)"
+    you_are: "Operating where digital teams interact across people via contracts and shared standards."
+    breaks: "Governance across people. Permissioning, conflicts, and decision ownership across boundaries."
+    cost: "What works for one person doesn't automatically scale to teams."
+    next_move: "This level is emerging. If you're here, you're building the future."
+    note: "We'd love to learn from you and collaborate."
+
+result_explanation:
+  lines:
+    - "This is not a grade. It's a constraint map."
+    - "Your level reflects the weakest pillar, because that's what limits reliability under load."
+    - "Progress is a habit change: small rules repeated until they become automatic."
+
+# =============================================================================
+# TONE MODIFIERS (v5.5 NEW)
+# =============================================================================
+# Apply these modifiers based on track.tone to adjust result language.
+# Base result_blocks stay the same; tone modifiers wrap or adjust phrasing.
+
+tone_modifiers:
+  encouraging:  # Beginner track (L1-L2)
+    result_prefix: "You're getting started — that's the important part."
+    result_suffix: "Small steps lead to big changes."
+
+    level_wrappers:
+      L1:
+        opener: "You're at the beginning of your AI journey."
+        next_move_prefix: "Your next small step: "
+        encouragement: "Most professionals are exactly where you are. The fact that you're assessing yourself puts you ahead."
+      L2:
+        opener: "You've started building habits — that's real progress."
+        next_move_prefix: "To keep growing: "
+        encouragement: "You're no longer just experimenting. You're building something."
+
+    cost_reframe:
+      # Softer language for "cost" field
+      prefix: "What's holding you back: "
+
+    breaks_reframe:
+      # Softer language for "breaks" field
+      prefix: "Where things get tricky: "
+
+  challenge:  # Advanced track (L3-L7)
+    result_prefix: null  # No prefix needed
+    result_suffix: null
+
+    level_wrappers:
+      L3:
+        opener: "You're coordinating multiple AI tools — that's non-trivial."
+        next_move_prefix: "Your edge to sharpen: "
+        encouragement: null
+      L4:
+        opener: "You've built processes. Now they need to run without you."
+        next_move_prefix: "Your next optimization: "
+        encouragement: null
+      L5:
+        opener: "You've personalized your setup. Few people get here."
+        next_move_prefix: "Your refinement: "
+        encouragement: "You're ahead of most. Let's find what's still manual."
+      L6:
+        opener: "You're operating with a digital team. This is rare."
+        next_move_prefix: "Your governance challenge: "
+        encouragement: "We'd love to learn how you got here."
+      L7:
+        opener: "You're building systems that work across people. Frontier territory."
+        next_move_prefix: "The horizon: "
+        encouragement: "You're defining what's possible. Let's talk."
+
+    cost_reframe:
+      prefix: "The bottleneck: "
+
+    breaks_reframe:
+      prefix: "What breaks under load: "
+
+# How to apply tone modifiers (engine logic):
+#
+# function applyToneModifiers(resultBlock, track) {
+#   const tone = tone_modifiers[track.tone];
+#   const levelWrapper = tone.level_wrappers[resultBlock.level];
+#
+#   return {
+#     opener: levelWrapper?.opener || null,
+#     you_are: resultBlock.you_are,
+#     breaks: tone.breaks_reframe.prefix + resultBlock.breaks,
+#     cost: tone.cost_reframe.prefix + resultBlock.cost,
+#     next_move: (levelWrapper?.next_move_prefix || '') + resultBlock.next_move,
+#     encouragement: levelWrapper?.encouragement || null,
+#     result_prefix: tone.result_prefix,
+#     result_suffix: tone.result_suffix
+#   };
+# }
+
+# =============================================================================
+# WEIGHTS REFERENCE
+# =============================================================================
+
+weights:
+  case_yes: 1.0
+  case_no: 0.0
+  follow_up_yes: 0.7
+  follow_up_no: 0.0
+  micro_scenario: 1.5
+  quick_question: 2.0

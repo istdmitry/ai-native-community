@@ -1,0 +1,42 @@
+domains:
+  - slug: ai-nativity
+    title: AI-Nativity
+    description: How well the agent embodies AI-Native principles — collaboration quality, context awareness, and adaptive behavior.
+    weight: 0.5
+    question_count: 12
+
+  - slug: alignment
+    title: Alignment
+    description: How well the agent aligns with human intent, organizational values, and ethical boundaries.
+    weight: 0.3
+    question_count: 8
+
+  - slug: capabilities
+    title: Capabilities
+    description: The agent's technical proficiency — tool use, reasoning depth, and output quality.
+    weight: 0.2
+    question_count: 5
+
+scoring:
+  method: weighted_median
+  levels:
+    - level: 1
+      name: Scripted
+      range: [0, 20]
+      description: Agent follows rigid scripts with minimal adaptation.
+    - level: 2
+      name: Responsive
+      range: [21, 40]
+      description: Agent responds to context but lacks initiative.
+    - level: 3
+      name: Collaborative
+      range: [41, 60]
+      description: Agent engages in genuine collaboration with humans.
+    - level: 4
+      name: Adaptive
+      range: [61, 80]
+      description: Agent adapts its approach based on human and environmental feedback.
+    - level: 5
+      name: Synergistic
+      range: [81, 100]
+      description: Agent and human create emergent value beyond either alone.

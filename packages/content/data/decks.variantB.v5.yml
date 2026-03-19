@@ -1,0 +1,101 @@
+meta:
+  id: decks.variantB.v5
+  version: v5
+  variant: B
+  description: "Default: micro-scenarios first, then quick questions."
+
+accuracy_choice_order:
+  - micro_scenarios
+  - quick_questions
+  - more_cases
+  - explore_all
+  - see_result
+
+decks:
+  starter_6:
+    items:
+      - case.2C
+      - case.3B
+      - case.4A
+      - case.5A
+      - case.5B
+      - case.6C
+
+  quick_questions_3:
+    items:
+      - qq.1
+      - qq.2
+      - qq.3
+
+  micro_scenarios_3:
+    items:
+      - ms.1
+      - ms.2
+      - ms.3
+
+  advanced_calibration:
+    items:
+      - case.3C
+      - case.3D
+      - case.3E
+      - case.4B
+      - case.5C
+      - case.6A
+      - case.6B
+
+  explore_all:
+    items:
+      - case.1A
+      - case.1B
+      - case.2A
+      - case.2B
+      - case.2C
+      - case.3A
+      - case.3B
+      - case.3C
+      - case.3D
+      - case.3E
+      - case.4A
+      - case.4B
+      - case.5A
+      - case.5B
+      - case.5C
+      - case.6A
+      - case.6B
+      - case.6C
+      - case.7A
+
+  more_cases_pool:
+    by_pillar:
+      context_system:
+        - case.1B
+        - case.2C
+        - case.3A
+        - case.3C
+      orchestration_load:
+        - case.1A
+        - case.3B
+        - case.5C
+        - case.6A
+        - case.6C
+      verification_control:
+        - case.2A
+        - case.2B
+        - case.3D
+        - case.4A
+        - case.4B
+        - case.6B
+      codification_reuse:
+        - case.5A
+      personal_fit:
+        - case.3E
+        - case.5B
+    exclude:
+      - case.2C
+      - case.3B
+      - case.4A
+      - case.5A
+      - case.5B
+      - case.6C
+    horizon_cases:
+      - case.7A

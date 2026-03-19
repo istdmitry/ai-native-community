@@ -1,0 +1,9 @@
+slug: hala
+title: "HALA Framework"
+version: "1.0"
+author_team: "8Hats Lab"
+status: published
+content_file: "hala.mdx"
+description: >
+  Human-AI Learning Architecture. A framework for designing learning experiences
+  that build AI-Native capabilities in individuals and teams.

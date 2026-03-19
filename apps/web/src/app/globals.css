@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* AI-Native Community — Single Dark Theme
+ * Tokens from: ai-native-organization/design-system/tokens/style1-dark.json
+ */
+:root {
+  /* Primary: Teal */
+  --skin-primary: #0D9E8F;
+  --skin-primary-hover: #0BB5A4;
+  --skin-primary-light: rgba(13, 158, 143, 0.12);
+  --skin-primary-lighter: rgba(13, 158, 143, 0.06);
+
+  /* Secondary: Gold */
+  --skin-secondary: #E0BF4A;
+  --skin-secondary-hover: #EDD06B;
+  --skin-secondary-light: rgba(224, 191, 74, 0.12);
+
+  /* Backgrounds */
+  --skin-bg-main: #0F1419;
+  --skin-bg-alt: #1A1F2E;
+  --skin-bg-surface: #252A38;
+  --skin-bg-gradient-start: #0F1419;
+  --skin-bg-gradient-end: #1A1F2E;
+
+  /* Text */
+  --skin-text-main: #E8E9ED;
+  --skin-text-secondary: #B8B9BD;
+  --skin-text-muted: #8890A4;
+  --skin-text-light: #6B7280;
+
+  /* Borders */
+  --skin-border: rgba(255, 255, 255, 0.08);
+  --skin-border-light: rgba(255, 255, 255, 0.12);
+  --skin-border-focus: #0D9E8F;
+
+  /* Shadows */
+  --skin-shadow-card: 0 8px 32px rgba(0, 0, 0, 0.24);
+  --skin-shadow-button: 0 4px 24px rgba(13, 158, 143, 0.15);
+
+  /* Radius */
+  --skin-radius-card: 20px;
+  --skin-radius-button: 12px;
+  --skin-radius-input: 12px;
+
+  /* Glass */
+  --skin-glass-bg: rgba(37, 42, 56, 0.7);
+  --skin-glass-border: rgba(255, 255, 255, 0.08);
+  --skin-glass-blur: 14px;
+  --skin-glass-glow: 0 2px 24px rgba(13, 158, 143, 0.1), 0 0 0 0.5px rgba(255, 255, 255, 0.1);
+
+  /* Swipe card */
+  --skin-swipe-yes-color: #0D9E8F;
+  --skin-swipe-yes-bg: rgba(13, 158, 143, 0.15);
+  --skin-swipe-no-color: #F87171;
+  --skin-swipe-no-bg: rgba(248, 113, 113, 0.15);
+  --skin-swipe-card-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+
+  /* Progress */
+  --skin-progress-bar-bg: #374151;
+  --skin-progress-bar-fill: #0D9E8F;
+  --skin-progress-badge-bg: rgba(13, 158, 143, 0.15);
+  --skin-progress-badge-text: #0D9E8F;
+
+  /* Results */
+  --skin-result-level-color: #E0BF4A;
+  --skin-result-pillar-bar-bg: #374151;
+  --skin-result-pillar-bar-fill: #0D9E8F;
+  --skin-result-low-confidence-bg: rgba(224, 191, 74, 0.12);
+  --skin-result-low-confidence-border: rgba(224, 191, 74, 0.25);
+  --skin-result-low-confidence-text: #E0BF4A;
+}
+
+/* Base styles */
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--skin-bg-main);
+  color: var(--skin-text-main);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glass card utility */
+@layer components {
+  .glass-card {
+    background: var(--skin-glass-bg);
+    border: 1px solid var(--skin-glass-border);
+    backdrop-filter: blur(var(--skin-glass-blur));
+    -webkit-backdrop-filter: blur(var(--skin-glass-blur));
+    box-shadow: var(--skin-glass-glow);
+    border-radius: var(--skin-radius-card);
+  }
+
+  .btn-primary {
+    background-color: var(--skin-primary);
+    color: white;
+    border-radius: var(--skin-radius-button);
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    box-shadow: var(--skin-shadow-button);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--skin-primary-hover);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--skin-text-main);
+    border: 1px solid var(--skin-border-light);
+    border-radius: var(--skin-radius-button);
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--skin-primary);
+    color: var(--skin-primary);
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  background-color: rgba(13, 158, 143, 0.3);
+  color: var(--skin-text-main);
+}

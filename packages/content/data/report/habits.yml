@@ -1,0 +1,244 @@
+# habits.yml
+# Keystone habits and micro-tasks for L1-L3 transitions.
+# L4+ users receive diagnostics, not prescriptive habits (per policy).
+# Source: migrated from docs-sync block.v1.yaml pillars[*].transitions[*].habits
+
+version: v2
+policy:
+  l4plus_no_habits: true
+  tool_agnostic: true
+
+# CTA for L1-L3 users after habits section
+report_section:
+  cta:
+    en: "Need help with your habit training plan? Book a 1:1 consultation."
+    ru: "Нужна помощь с планом развития привычек? Запишитесь на консультацию."
+    button_text:
+      en: "Get Help"
+      ru: "Получить помощь"
+    whatsapp:
+      phone: "6580536400"
+      message:
+        en: "Hi! I completed the AI Native Assessment (L{{level}}) and would like help with my habit training plan."
+        ru: "Здравствуйте! Я прошёл AI Native Assessment (L{{level}}) и хотел бы получить помощь с планом развития привычек."
+
+transitions:
+  context_system:
+    "1->2":
+      level_from: 1
+      level_to: 2
+      level_plus_one:
+        - "One stable 'Context Card' exists for a recurring workflow."
+        - "You reuse it without rewriting from scratch."
+      habits:
+        keystone:
+          - "Create a 10-bullet Context Card for one recurring workflow."
+        micro_tasks:
+          - "Write: goal, audience, constraints, example of good output, example of bad output."
+          - "Add a 'definition of done' (3 bullets)."
+          - "Store it in one stable place and reuse it tomorrow."
+        proof_of_completion: "One Context Card used twice without rewriting."
+
+    "2->3":
+      level_from: 2
+      level_to: 3
+      level_plus_one:
+        - "Context includes a refresh trigger and travels between steps/tools."
+        - "You stop compensating with long prompts."
+      habits:
+        keystone:
+          - "Add a refresh trigger and 'last updated' to your Context Card."
+        micro_tasks:
+          - "Define 3 fields that drift (priorities, terms, stakeholders)."
+          - "Add 'refresh when X changes' rule."
+          - "Do a 2-minute refresh before starting the workflow."
+        proof_of_completion: "Context Card has refresh trigger and was updated deliberately."
+
+    "3->4":
+      level_from: 3
+      level_to: 4
+      level_plus_one:
+        - "Context packaging becomes part of the workflow handoff."
+        - "Handoffs stop depending on your memory."
+      habits:
+        keystone:
+          - "Define a handoff format: 'Context Packet' (max 8 bullets)."
+        micro_tasks:
+          - "Create a Context Packet template."
+          - "Use it once between two steps/tools."
+          - "Remove anything non-essential (keep it portable)."
+        proof_of_completion: "Context Packet template used in one handoff."
+
+  orchestration_load:
+    "1->2":
+      level_from: 1
+      level_to: 2
+      level_plus_one:
+        - "One workflow is defined as 3 steps with an explicit output per step."
+      habits:
+        keystone:
+          - "Define a 3-step workflow for one recurring project type."
+        micro_tasks:
+          - "Name the 3 steps and expected output of each."
+          - "Write one handoff prompt for step 2."
+          - "Run the workflow end-to-end once without inventing new steps."
+        proof_of_completion: "3-step workflow completed once end-to-end."
+
+    "2->3":
+      level_from: 2
+      level_to: 3
+      level_plus_one:
+        - "Handoffs are explicit; routing is less dependent on you."
+        - "You can pause and resume without losing the thread."
+      habits:
+        keystone:
+          - "Define a 'handoff artifact' for each step (max 5 bullets)."
+        micro_tasks:
+          - "Create handoff formats for step 1→2 and 2→3."
+          - "Add 'stop conditions' (when to ask for missing inputs)."
+          - "Use the handoff artifact twice this week."
+        proof_of_completion: "Handoff artifact used twice."
+
+    "3->4":
+      level_from: 3
+      level_to: 4
+      level_plus_one:
+        - "Checkpoints and escalation rules exist inside the workflow."
+      habits:
+        keystone:
+          - "Add one checkpoint + one escalation rule to the workflow."
+        micro_tasks:
+          - "Define a checkpoint question: 'Is this aligned to goal + constraints?'"
+          - "Define one escalation trigger: 'stop and ask when confidence is low'."
+          - "Record one exception and update the workflow."
+        proof_of_completion: "Checkpoint and escalation rule used once."
+
+  verification_control:
+    "1->2":
+      level_from: 1
+      level_to: 2
+      level_plus_one:
+        - "You have a short checklist (3–5 items) for one output type."
+      habits:
+        keystone:
+          - "Write 3 acceptance criteria for one recurring output."
+        micro_tasks:
+          - "Turn criteria into a checklist."
+          - "Use it once before you accept output."
+          - "Edit checklist after one real use."
+        proof_of_completion: "Acceptance checklist used and edited once."
+
+    "2->3":
+      level_from: 2
+      level_to: 3
+      level_plus_one:
+        - "One checkpoint exists mid-work, not only at the end."
+        - "One escalation trigger is defined."
+      habits:
+        keystone:
+          - "Add one mid-work checkpoint + one escalation rule."
+        micro_tasks:
+          - "Define a checkpoint question and run it once mid-flow."
+          - "Write 3 'red flags' that trigger escalation."
+          - "Log one exception and update criteria."
+        proof_of_completion: "Mid-work checkpoint run and escalation trigger defined."
+
+    "3->4":
+      level_from: 3
+      level_to: 4
+      level_plus_one:
+        - "Verification is systematized across workflows; exceptions are classified."
+      habits:
+        keystone:
+          - "Create an exception taxonomy (3 buckets) for one workflow."
+        micro_tasks:
+          - "Define: minor / major / must-escalate."
+          - "Map each bucket to an action."
+          - "Use it once and refine."
+        proof_of_completion: "Exception taxonomy with 3 buckets created and used."
+
+  codification_reuse:
+    "1->2":
+      level_from: 1
+      level_to: 2
+      level_plus_one:
+        - "One template exists and is used twice."
+      habits:
+        keystone:
+          - "Turn one repeated output into a template."
+        micro_tasks:
+          - "Copy a good output → strip content → keep structure."
+          - "Add placeholders + short usage instructions."
+          - "Use it tomorrow (no exceptions)."
+        proof_of_completion: "Template used twice."
+
+    "2->3":
+      level_from: 2
+      level_to: 3
+      level_plus_one:
+        - "One runbook exists with maintenance notes."
+      habits:
+        keystone:
+          - "Create a 6-step runbook for one workflow."
+        micro_tasks:
+          - "Write steps A–F (max 6)."
+          - "Add one common failure + fix."
+          - "Add a 'last updated' line."
+        proof_of_completion: "6-step runbook with maintenance notes created."
+
+    "3->4":
+      level_from: 3
+      level_to: 4
+      level_plus_one:
+        - "Assets are governed (review triggers + ownership)."
+      habits:
+        keystone:
+          - "Add ownership + review trigger to one shared asset."
+        micro_tasks:
+          - "Assign an owner (even if it's you)."
+          - "Define 'review when X changes'."
+          - "Prune one unused asset."
+        proof_of_completion: "Asset has owner and review trigger; one asset pruned."
+
+  personal_fit_adaptation:
+    "1->2":
+      level_from: 1
+      level_to: 2
+      level_plus_one:
+        - "A short 'How I work' profile exists and is reused."
+      habits:
+        keystone:
+          - "Write a 5-bullet 'How I work' profile."
+        micro_tasks:
+          - "Preferred format (bullets vs narrative)."
+          - "Decision style (fast/slow, evidence needs)."
+          - "What annoys you in outputs + what helps you decide."
+        proof_of_completion: "'How I work' profile written and reused once."
+
+    "2->3":
+      level_from: 2
+      level_to: 3
+      level_plus_one:
+        - "Weekly fit refresh exists; one rule changes based on reality."
+      habits:
+        keystone:
+          - "Add a weekly 5-minute fit refresh."
+        micro_tasks:
+          - "Note one friction point this week."
+          - "Change one rule in the profile."
+          - "Apply it to the next task."
+        proof_of_completion: "Weekly fit refresh completed; one rule changed."
+
+    "3->4":
+      level_from: 3
+      level_to: 4
+      level_plus_one:
+        - "Fit rules are embedded into workflows (not only prompts)."
+      habits:
+        keystone:
+          - "Embed one fit rule into a template/runbook."
+        micro_tasks:
+          - "Pick one recurring template."
+          - "Add 'format + decision criteria' as defaults."
+          - "Use it twice and refine."
+        proof_of_completion: "Fit rule embedded in template; used twice."
