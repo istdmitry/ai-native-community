@@ -34,8 +34,8 @@ export const metadata: Metadata = {
     description: 'Independent, community-driven platform for AI-Native methodology.',
   },
   robots: {
-    index: true,
-    follow: true,
+    index: false,
+    follow: false,
   },
 };
 

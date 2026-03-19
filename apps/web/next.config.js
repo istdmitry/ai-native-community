@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // output: 'standalone', // Enable for Docker builds (requires symlink perms on Windows)
+  output: 'export',
+  basePath: '/community',
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
   transpilePackages: [
     '@community/engine',
     '@community/content',
